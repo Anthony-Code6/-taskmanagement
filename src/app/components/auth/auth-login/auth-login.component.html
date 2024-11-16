@@ -1,8 +1,12 @@
 <div class="card">
-  <div class="card-header text-center">
-    <h5 class="card-title">Inicio de Sesion</h5>
-  </div>
   <div class="card-body">
+
+    <div class="text-center">
+      <h5 class="card-title">Inicio de Sesion</h5>
+    </div>
+
+    <hr>
+
     <form enctype="multipart/form-data" method="post" [formGroup]="formulario">
       <div class="mb-3">
         <label for="email" class="form-label">
@@ -13,6 +17,8 @@
           class="form-control form-control-sm shadow-none" placeholder="" />
         @if(formulario.controls['email'].touched && formulario.controls['email'].invalid ||
         formulario.controls['email'].dirty){
+
+
         @if(formulario.controls['email'].errors?.['required']){
         <small id="message-error" class="text-muted">
           <span class="material-symbols-outlined">
@@ -20,10 +26,19 @@
           </span>
           Debes ingresar tu correo.</small>
         }
+
+        @if(formulario.controls['email'].errors?.['email'] && formulario.controls['email'].errors?.['pattern']){
+        <small id="message-error" class="text-muted">
+          <span class="material-symbols-outlined">
+            error
+          </span>
+          El correo no es valido.</small>
+        }
+
         }
       </div>
 
-      <div class="mb-3">
+      <div class="mb-2">
         <label for="password" class="form-label">
           <span class="material-symbols-outlined">
             lock
@@ -43,6 +58,9 @@
       </div>
 
       <div class="accion">
+
+        <p>Deseas crear una nueva cuenta. <a routerLink="/login">Aqui</a></p>
+
         <button type="submit" class="btn-event">
           <span class="material-symbols-outlined">
             login

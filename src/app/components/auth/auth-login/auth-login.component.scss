@@ -39,6 +39,23 @@
     }
 
     .accion {
+
+      p {
+        text-align: end;
+        font-size: 0.75rem;
+        margin-bottom: 10px;
+
+        a {
+          text-decoration: none;
+          color: black;
+        }
+
+        a:hover {
+          color: #b28181;
+        }
+
+      }
+
       button {
         border: none;
         width: 100%;
@@ -65,3 +82,14 @@
 
 
 }
+
+
+/*
+// No usar este estilo
+
+.card,.form-control{
+  background: #fafafa10 !important;
+  backdrop-filter: blur(0.4rem) !important;
+  -webkit-backdrop-filter: blur(0.4rem) !important;
+}
+*/

@@ -1,7 +1,17 @@
 .content{
   width: 100%;
-  height: calc(100vh - 30px);
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+
+
+ /*
+  background-image: url('/assets/fondo/fondo.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+ */
 }
+
