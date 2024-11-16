@@ -3,22 +3,51 @@
     <h5 class="card-title">Inicio de Sesion</h5>
   </div>
   <div class="card-body">
-    <form enctype="multipart/form-data" method="post">
+    <form enctype="multipart/form-data" method="post" [formGroup]="formulario">
       <div class="mb-3">
-        <label for="email" class="form-label">Correo Electronico</label>
-        <input type="email" name="email" id="email" class="form-control form-control-sm shadow-none" placeholder="" />
-        <small id="message-error" class="text-muted">Help text</small>
+        <label for="email" class="form-label">
+          <span class="material-symbols-outlined">
+            mail
+          </span> Correo Electronico</label>
+        <input type="email" name="email" id="email" formControlName="email"
+          class="form-control form-control-sm shadow-none" placeholder="" />
+        @if(formulario.controls['email'].touched && formulario.controls['email'].invalid ||
+        formulario.controls['email'].dirty){
+        @if(formulario.controls['email'].errors?.['required']){
+        <small id="message-error" class="text-muted">
+          <span class="material-symbols-outlined">
+            error
+          </span>
+          Debes ingresar tu correo.</small>
+        }
+        }
       </div>
 
       <div class="mb-3">
-        <label for="password" class="form-label">Contraseña</label>
-        <input type="password" name="password" id="password" class="form-control form-control-sm shadow-none"
-          placeholder="" />
-        <small id="message-error" class="text-muted">Help text</small>
+        <label for="password" class="form-label">
+          <span class="material-symbols-outlined">
+            lock
+          </span>Contraseña</label>
+        <input type="password" name="password" id="password" formControlName="password"
+          class="form-control form-control-sm shadow-none" placeholder="" />
+        @if(formulario.controls['password'].touched && formulario.controls['password'].invalid ||
+        formulario.controls['password'].dirty){
+        @if(formulario.controls['password'].errors?.['required']){
+        <small id="message-error" class="text-muted">
+          <span class="material-symbols-outlined">
+            error
+          </span>
+          Debes ingresar tu contraseña.</small>
+        }
+        }
       </div>
 
       <div class="accion">
-        <button type="submit" class="btn-event">Ingresar</button>
+        <button type="submit" class="btn-event">
+          <span class="material-symbols-outlined">
+            login
+          </span>
+          Ingresar</button>
       </div>
     </form>
   </div>
