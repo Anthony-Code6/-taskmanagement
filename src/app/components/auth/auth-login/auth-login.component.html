@@ -1,1 +1,25 @@
-<p>auth-login works!</p>
+<div class="card">
+  <div class="card-header text-center">
+    <h5 class="card-title">Inicio de Sesion</h5>
+  </div>
+  <div class="card-body">
+    <form enctype="multipart/form-data" method="post">
+      <div class="mb-3">
+        <label for="email" class="form-label">Correo Electronico</label>
+        <input type="email" name="email" id="email" class="form-control form-control-sm shadow-none" placeholder="" />
+        <small id="message-error" class="text-muted">Help text</small>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" name="password" id="password" class="form-control form-control-sm shadow-none"
+          placeholder="" />
+        <small id="message-error" class="text-muted">Help text</small>
+      </div>
+
+      <div class="accion">
+        <button type="submit" class="btn-event">Ingresar</button>
+      </div>
+    </form>
+  </div>
+</div>
