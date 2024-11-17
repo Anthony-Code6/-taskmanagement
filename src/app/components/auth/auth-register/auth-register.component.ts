@@ -1,18 +1,21 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthSupabaseService } from '../../../services/auth-supabase.service';
 import { RouterLink } from '@angular/router';
 
+
 @Component({
-  selector: 'app-auth-login',
+  selector: 'app-auth-register',
   standalone: true,
   imports: [ReactiveFormsModule,RouterLink],
-  templateUrl: './auth-login.component.html',
-  styleUrl: './auth-login.component.scss'
+  templateUrl: './auth-register.component.html',
+  styleUrl: './auth-register.component.scss'
 })
-export class AuthLoginComponent {
-
+export class AuthRegisterComponent {
   formulario!: FormGroup
   form = inject(FormBuilder)
+
+  authSupaBase = inject(AuthSupabaseService)
 
   ngOnInit(): void {
 
@@ -23,13 +26,18 @@ export class AuthLoginComponent {
 
   }
 
-
-  autenticacion() {
+  async crearCuenta() {
     if (this.formulario.valid) {
       const email = this.formulario.controls['email'].value
       const password = this.formulario.controls['password'].value
 
-
+      await this.authSupaBase.signUp(email, password)
+        .then((resp: any) => {
+          console.log(resp);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
     }
   }
 
