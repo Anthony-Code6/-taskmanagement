@@ -7,7 +7,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-auth-register',
   standalone: true,
-  imports: [ReactiveFormsModule,RouterLink],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './auth-register.component.html',
   styleUrl: './auth-register.component.scss'
 })
@@ -30,14 +30,14 @@ export class AuthRegisterComponent {
     if (this.formulario.valid) {
       const email = this.formulario.controls['email'].value
       const password = this.formulario.controls['password'].value
+      console.log(email, password);
 
-      await this.authSupaBase.signUp(email, password)
-        .then((resp: any) => {
-          console.log(resp);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
+      try {
+        const result = await this.authSupaBase.signUp(email, password);
+        console.log('Registration successful', result);
+      } catch (error) {
+        console.error('Registration error', error);
+      }
     }
   }
 
