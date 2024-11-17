@@ -63,6 +63,11 @@
   }
 }
 
+.card:hover{
+  box-shadow: 10px 10px 10px #ebdddd;
+  cursor: pointer;
+}
+
 
 @media screen and (width <= 1210) {
   .card-footer{
