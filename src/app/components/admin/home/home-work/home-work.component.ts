@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Work } from '../../../../interfaces/work';
 
 @Component({
   selector: 'app-home-work',
@@ -9,5 +10,5 @@ import { RouterLink } from '@angular/router';
   styleUrl: './home-work.component.scss'
 })
 export class HomeWorkComponent {
-
+  work = input<any>()
 }

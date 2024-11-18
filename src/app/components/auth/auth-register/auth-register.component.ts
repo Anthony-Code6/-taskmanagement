@@ -26,22 +26,20 @@ export class AuthRegisterComponent {
 
   }
 
-  crearCuenta() {
+  async crearCuenta() {
     if (this.formulario.valid) {
       const email = this.formulario.controls['email'].value
       const password = this.formulario.controls['password'].value
       console.log(email, password);
 
-      this.authSupaBase.logIn(email, password)
-        .then((res: any) => {
-          console.log(res);
-          console.log(res.data.session);
-        })
-        .catch((err) => {
-          console.log(err);
+      const response = await this.authSupaBase.signUp(email, password)
 
-        })
+      if(response.error){
+        alert(response.error.message)
+      }else{
+        console.log(response.data);
 
+      }
     }
   }
 

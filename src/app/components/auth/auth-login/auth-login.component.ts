@@ -32,17 +32,15 @@ export class AuthLoginComponent {
       const email = this.formulario.controls['email'].value
       const password = this.formulario.controls['password'].value
 
-      console.log(email, password);
+      // console.log(email, password);
 
       this.authSupaBase.logIn(email, password)
         .then((res: any) => {
-          console.log(res);
-          console.log(res.data.session);
-          console.log(res.data.session['access_token']);
-
+          // console.log(res);
+          // console.log(res.data.session);
+          // console.log(res.data.session['access_token']);
+          // console.log(this.authSupaBase.session());
           localStorage.setItem('token', res.data.session['access_token'])
-          //console.log(this.authSupaBase.session());
-
           this.router.navigate(['/administrador/home'])
         })
         .catch((err) => {

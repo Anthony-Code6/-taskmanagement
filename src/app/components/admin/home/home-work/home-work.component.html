@@ -9,15 +9,12 @@
     </button>
   </div>
   <div class="card-body">
-    <h5 class="card-title">Area 51</h5>
+    <h5 class="card-title">{{work()?.titulo}}</h5>
     <div class="content">
-      El Área 51 es una instalación militar de alta seguridad ubicada en el desierto de Nevada, Estados Unidos,
-      aproximadamente a 130 kilómetros al noroeste de Las Vegas. Oficialmente conocida como Groom Lake o Homey Airport,
-      esta base ha sido objeto de numerosas teorías de conspiración y ha captado la imaginación pública debido a su alto
-      nivel de secreto y las especulaciones en torno a su uso.
+      {{work()?.descripcion}}
     </div>
   </div>
-  <a routerLink="/administrador/52/work/" class="card-footer">
+  <a routerLink="/administrador/{{work()?.id}}/work/" class="card-footer">
     Creador(a): anthonygmail.com
   </a>
 </div>

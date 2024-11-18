@@ -14,8 +14,20 @@ export class AuthSupabaseService {
     this.supabase_client.auth.getSession()
   }
 
-  signUp(email: string, password: string) {
-    return this.supabase_client.auth.signUp({ email, password })
+  async signUp(email: string, password: string) {
+    //return this.supabase_client.auth.signUp({ email, password })
+    const { data, error } = await this.supabase_client.auth.signUp({
+      email: email,
+      password: password
+    })
+    if (error) {
+      console.error('Error al registrarse:', error.message);
+      return { error };
+    }
+
+    console.log('Registro exitoso:', data);
+    return { data };
+
   }
 
 
@@ -46,6 +58,20 @@ export class AuthSupabaseService {
     if (isTokenExpired) this.logout()
 
     return isTokenExpired
+  }
+
+  getUserDetail() {
+    const token = this.getToken()
+    if (!token) return null
+
+    const decodeToken: any = jwtDecode(token)
+    const userDetail = {
+      id: decodeToken.sub,
+      email: decodeToken.email,
+      //fullname: decodeToken.Field01,
+      rol: decodeToken.role
+    }
+    return userDetail
   }
 
   logout() {
