@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Work } from '../../../../interfaces/work';
 
@@ -10,5 +10,12 @@ import { Work } from '../../../../interfaces/work';
   styleUrl: './home-work.component.scss'
 })
 export class HomeWorkComponent {
-  work = input<any>()
+  work = input<Work>()
+
+  delete = output<Work | undefined>()
+
+
+  deleteEvent() {
+    this.delete.emit(this.work())
+  }
 }

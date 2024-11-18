@@ -1,7 +1,7 @@
 <div class="content-work">
 
   @for (item of work; track item.id ; let index = $index) {
-  <app-home-work [work]="item" />
+  <app-home-work [work]="item" (delete)="dltWork($event)" />
   }
 
   <a routerLink="/administrador/home/work/create" class="add-work">

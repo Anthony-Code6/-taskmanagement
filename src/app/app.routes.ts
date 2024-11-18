@@ -4,6 +4,7 @@ import { RegisterComponent } from './pages/auth/register/register.component';
 import { HomeComponent } from './pages/admin/home/home.component';
 import { authGuardGuard } from './guards/auth-guard.guard';
 import { notAuthGuardGuard } from './guards/not-auth-guard.guard';
+import { PostUpdateWorkComponent } from './components/admin/home/post-update-work/post-update-work.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -12,5 +13,8 @@ export const routes: Routes = [
 
   {
     path: 'administrador/home', component: HomeComponent, canActivate: [authGuardGuard]
+  },
+  {
+    path: 'administrador/home/work/create', component: PostUpdateWorkComponent, canActivate: [authGuardGuard]
   }
 ];

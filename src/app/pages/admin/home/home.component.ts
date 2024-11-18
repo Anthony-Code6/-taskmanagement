@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { AfterViewInit, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { HomeWorkComponent } from "../../../components/admin/home/home-work/home-work.component";
 import { RouterLink } from '@angular/router';
 import { AreasService } from '../../../services/areas.service';
@@ -11,22 +11,49 @@ import { Work } from '../../../interfaces/work';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements OnInit, OnDestroy , AfterViewInit {
 
-  work!: any[] | null | undefined
+  work: Work[] = []
   private areaServices = inject(AreasService)
 
-  async ngAfterViewInit() {
+  ngOnInit(): void {
+    this.sellWork()
+  }
+
+  ngOnDestroy(): void {
+    this.areaServices.cleanWork()
+  }
+
+  ngAfterViewInit(): void {
+    this.areaServices.getWork().subscribe({
+      next: data => {
+        this.work = data
+      }, error: err => {
+        console.log(err);
+      }
+    })
+  }
+
+  async sellWork() {
     const response = await this.areaServices.sellstWork();
     if (response.error) {
-      console.log(response.error);
-
-    } else {
-      this.work = response.work
+      // Mensaje de Error
+      //response.error.message;
+    } else if (response.work) {
+      response.work.forEach(element => {
+        this.areaServices.setWork(element);
+      });
     }
+  }
 
-
-
+  async dltWork(event: Work | undefined) {
+    const response = await this.areaServices.dltWork(event?.id);
+    if (response.error) {
+      //this.error = 'Error al eliminar el registro: ' + response.error.message;
+    } else {
+      //console.log('Registro eliminado correctamente');
+      this.areaServices.removeWork(event?.id);
+    }
   }
 
 }
