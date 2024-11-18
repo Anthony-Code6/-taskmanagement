@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthSupabaseService } from '../../../services/auth-supabase.service';
 
 @Component({
   selector: 'app-auth-login',
   standalone: true,
-  imports: [ReactiveFormsModule,RouterLink],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './auth-login.component.html',
   styleUrl: './auth-login.component.scss'
 })
@@ -15,6 +15,7 @@ export class AuthLoginComponent {
   formulario!: FormGroup
   form = inject(FormBuilder)
 
+  router = inject(Router)
   authSupaBase = inject(AuthSupabaseService)
 
   ngOnInit(): void {
@@ -26,11 +27,28 @@ export class AuthLoginComponent {
 
   }
 
-  async autenticacion() {
+  autenticacion() {
     if (this.formulario.valid) {
       const email = this.formulario.controls['email'].value
       const password = this.formulario.controls['password'].value
 
+      console.log(email, password);
+
+      this.authSupaBase.logIn(email, password)
+        .then((res: any) => {
+          console.log(res);
+          console.log(res.data.session);
+          console.log(res.data.session['access_token']);
+
+          localStorage.setItem('token', res.data.session['access_token'])
+          //console.log(this.authSupaBase.session());
+
+          this.router.navigate(['/administrador/home'])
+        })
+        .catch((err) => {
+          console.log(err);
+
+        })
     }
   }
 

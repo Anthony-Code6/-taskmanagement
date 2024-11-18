@@ -26,7 +26,7 @@ export class AuthRegisterComponent {
 
   }
 
-  async crearCuenta() {
+  crearCuenta() {
     if (this.formulario.valid) {
       const email = this.formulario.controls['email'].value
       const password = this.formulario.controls['password'].value
@@ -35,6 +35,7 @@ export class AuthRegisterComponent {
       this.authSupaBase.logIn(email, password)
         .then((res: any) => {
           console.log(res);
+          console.log(res.data.session);
         })
         .catch((err) => {
           console.log(err);
