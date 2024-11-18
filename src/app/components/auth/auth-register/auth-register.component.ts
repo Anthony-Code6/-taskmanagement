@@ -32,12 +32,15 @@ export class AuthRegisterComponent {
       const password = this.formulario.controls['password'].value
       console.log(email, password);
 
-      try {
-        const result = await this.authSupaBase.signUp(email, password);
-        console.log('Registration successful', result);
-      } catch (error) {
-        console.error('Registration error', error);
-      }
+      this.authSupaBase.logIn(email, password)
+        .then((res: any) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+
+        })
+
     }
   }
 

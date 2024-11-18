@@ -30,12 +30,7 @@ export class AuthLoginComponent {
     if (this.formulario.valid) {
       const email = this.formulario.controls['email'].value
       const password = this.formulario.controls['password'].value
-      try {
-        const result = await this.authSupaBase.signIn(email, password);
-        console.log('Login successful', result);
-      } catch (error) {
-        console.error('Login error', error);
-      }
+
     }
   }
 

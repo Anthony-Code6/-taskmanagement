@@ -7,7 +7,7 @@
 }
 
 .add-work {
-box-shadow: 5px 10px 10px #f4ecec;
+  box-shadow: 5px 10px 10px #f4ecec;
 
   background-color: #ebdddd;
   text-decoration: none;
@@ -22,8 +22,17 @@ box-shadow: 5px 10px 10px #f4ecec;
   position: fixed;
   bottom: 2%;
   right: 1%;
+
   span {
     color: black;
     font-size: 1.80rem;
+  }
+}
+
+
+@media screen and (width <=700px) {
+  .add-work {
+    bottom: 2%;
+    right: 3%;
   }
 }

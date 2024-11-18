@@ -1,20 +1,12 @@
-import { Injectable } from '@angular/core';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { environment } from '../../environments/environment';
+import { inject, Injectable } from '@angular/core';
+import { SupabasesService } from './supabases.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SupabaseTareaService {
 
-  private supabase: SupabaseClient
-
-  constructor(){
-    const supabaseUrl = 'https://gjnxofvtrllvefchqlzo.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdqbnhvZnZ0cmxsdmVmY2hxbHpvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE3ODM2MjIsImV4cCI6MjA0NzM1OTYyMn0.KTBa66zSfYV3tY42OhFGrpghOUnaCdAuwauvrVx4B5I';
-    this.supabase = createClient(supabaseUrl, supabaseKey);
-  }
-
+  private supabase_client=inject(SupabasesService).supabase
 
 
 
