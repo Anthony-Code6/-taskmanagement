@@ -1,5 +1,5 @@
 export interface Work {
-  id: Number;
+  id?: Number;
   titulo: String;
   descripcion: String;
   uidUser: String;

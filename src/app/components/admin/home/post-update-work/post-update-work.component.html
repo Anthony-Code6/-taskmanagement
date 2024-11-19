@@ -1,1 +1,72 @@
-<p>post-update-work works!</p>
+<div class="card">
+  <div class="card-body">
+
+    <div class="text-center">
+
+      <a routerLink="/administrador/home" class="arrow">
+        <span class="material-symbols-outlined">
+          chevron_left
+        </span>
+      </a>
+
+      <h5 class="card-title">Crear Nueva Area de Trabajo</h5>
+    </div>
+
+    <hr>
+
+    <form enctype="multipart/form-data" method="post" [formGroup]="formulario" (submit)="submitWork()">
+      <div class="mb-3">
+        <label for="titulo" class="form-label">
+          <span class="material-symbols-outlined">
+            edit
+          </span> Titulo</label>
+        <input type="text" name="titulo" id="titulo" formControlName="titulo"
+          class="form-control form-control-sm shadow-none" placeholder="" />
+        @if(formulario.controls['titulo'].touched && formulario.controls['titulo'].invalid ||
+        formulario.controls['titulo'].dirty){
+
+
+        @if(formulario.controls['titulo'].errors?.['required']){
+        <small id="message-error" class="text-muted">
+          <span class="material-symbols-outlined">
+            error
+          </span>
+          Debes ingresar el titulo.</small>
+        }
+
+        }
+      </div>
+
+      <div class="mb-2">
+        <label for="password" class="form-label">
+          <span class="material-symbols-outlined">
+            edit
+            </span> Descripción</label>
+
+        <textarea name="descripcion" id="descripcion" formControlName="descripcion" class="form-control form-control-sm shadow-none"></textarea>
+
+        @if(formulario.controls['descripcion'].touched && formulario.controls['descripcion'].invalid ||
+        formulario.controls['descripcion'].dirty){
+        @if(formulario.controls['descripcion'].errors?.['required']){
+        <small id="message-error" class="text-muted">
+          <span class="material-symbols-outlined">
+            error
+          </span>
+          Debes ingresar la descripción.</small>
+        }
+        }
+      </div>
+
+
+
+      <div class="accion">
+
+        <button type="submit" class="btn-event">
+          <span class="material-symbols-outlined">
+            save
+          </span>
+          Crear Area</button>
+      </div>
+    </form>
+  </div>
+</div>

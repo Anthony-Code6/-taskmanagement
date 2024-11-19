@@ -81,5 +81,19 @@ export class AreasService {
     return { error: null };
   }
 
+  async addWork(work: Work): Promise<{ data: Work[] | null; error: any | null }> {
+    const { data, error } = await this.supabase_client
+      .from('work')
+      .insert([work]) // Inserta un nuevo registro
+      .select(); // Devuelve los datos insertados
+
+    if (error) {
+      console.error('Error al insertar datos:', error.message);
+      return { data: null, error };
+    }
+
+    console.log('Datos insertados correctamente:', data);
+    return { data: data as Work[], error: null };
+  }
 
 }
