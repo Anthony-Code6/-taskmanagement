@@ -65,6 +65,22 @@ export class AreasService {
     return { work: data as Work[], error: null };
   }
 
+  async gettWork(id: number): Promise<{ work: Work | null; error: any }> {
+    let { data, error } = await this.supabase_client
+      .from('work')
+      .select()
+      .eq('id', id)
+      .single();
+
+    if (error) {
+      console.error('Error al leer los datos:', error.message);
+      return { work: null, error };
+    }
+
+    // TypeScript infiere que `data` tiene el tipo `Work[]`
+    return { work: data as unknown as Work, error: null };
+  }
+
 
   async dltWork(id: Number | undefined): Promise<{ error: any | null }> {
     const { error } = await this.supabase_client
@@ -94,6 +110,27 @@ export class AreasService {
 
     console.log('Datos insertados correctamente:', data);
     return { data: data as Work[], error: null };
+  }
+
+  async updWork(id: number | undefined, updatedWork: Partial<Work>): Promise<Work | null> {
+    try {
+      const { data, error } = await this.supabase_client
+        .from('work')
+        .update(updatedWork) // Solo envía los campos que necesitas actualizar
+        .eq('id', id)
+        .select()
+        .single(); // Devuelve el registro actualizado
+
+      if (error) {
+        console.error('Error al actualizar el registro:', error.message);
+        throw new Error('No se pudo actualizar el registro');
+      }
+
+      return data as Work; // Asegúrate de que coincide con la interfaz
+    } catch (error) {
+      console.error('Error en el proceso de actualización:', error);
+      throw error;
+    }
   }
 
 }

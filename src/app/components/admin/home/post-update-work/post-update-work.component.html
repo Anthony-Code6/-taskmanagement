@@ -9,7 +9,7 @@
         </span>
       </a>
 
-      <h5 class="card-title">Crear Nueva Area de Trabajo</h5>
+      <h5 class="card-title">{{titulo}}</h5>
     </div>
 
     <hr>
@@ -41,9 +41,10 @@
         <label for="password" class="form-label">
           <span class="material-symbols-outlined">
             edit
-            </span> Descripción</label>
+          </span> Descripción</label>
 
-        <textarea name="descripcion" id="descripcion" formControlName="descripcion" class="form-control form-control-sm shadow-none"></textarea>
+        <textarea name="descripcion" id="descripcion" formControlName="descripcion"
+          class="form-control form-control-sm shadow-none"></textarea>
 
         @if(formulario.controls['descripcion'].touched && formulario.controls['descripcion'].invalid ||
         formulario.controls['descripcion'].dirty){
@@ -65,7 +66,7 @@
           <span class="material-symbols-outlined">
             save
           </span>
-          Crear Area</button>
+          {{idWork > 0 ? 'Editar Area':'Crear Area'}}</button>
       </div>
     </form>
   </div>

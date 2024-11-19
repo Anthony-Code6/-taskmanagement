@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy , AfterViewInit {
       next: data => {
         this.work = data
       }, error: err => {
-        console.log(err);
+        //console.log(err);
       }
     })
   }
@@ -47,12 +47,17 @@ export class HomeComponent implements OnInit, OnDestroy , AfterViewInit {
   }
 
   async dltWork(event: Work | undefined) {
-    const response = await this.areaServices.dltWork(event?.id);
-    if (response.error) {
-      //this.error = 'Error al eliminar el registro: ' + response.error.message;
-    } else {
-      //console.log('Registro eliminado correctamente');
-      this.areaServices.removeWork(event?.id);
+
+    const validar = confirm(`Deseas eliminar el area de trabajo '${event?.titulo}'`)
+
+    if(validar){
+      const response = await this.areaServices.dltWork(event?.id);
+      if (response.error) {
+        //this.error = 'Error al eliminar el registro: ' + response.error.message;
+      } else {
+        //console.log('Registro eliminado correctamente');
+        this.areaServices.removeWork(event?.id);
+      }
     }
   }
 
