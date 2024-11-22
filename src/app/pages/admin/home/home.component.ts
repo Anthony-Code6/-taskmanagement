@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { HomeWorkComponent } from "../../../components/admin/home/home-work/home-work.component";
 import { RouterLink } from '@angular/router';
-import { AreasService } from '../../../services/areas.service';
+import { AreasService } from '../../../services/work.service';
 import { Work } from '../../../interfaces/work';
 
 @Component({

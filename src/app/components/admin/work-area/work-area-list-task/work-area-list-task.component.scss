@@ -1,0 +1,63 @@
+.list-group {
+  .list-group-item {
+    padding: 8px 9px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .task {
+      .form-check-input {
+        margin-right: 10px;
+        border-radius: 100%;
+      }
+
+      .form-check-input:checked {
+        background-color: #f4ecec;
+        color: #000000;
+        border-color: #f4ecec;
+      }
+
+      .form-check-input::shadow {
+        box-shadow: none !important;
+        border: 1px solid #9c9c9c25;
+      }
+    }
+
+    .accion {
+
+
+      .delete_task {
+        display: flex;
+        place-items: center;
+
+        border-radius: 100%;
+        padding: 5px 5px;
+
+        border: none;
+        background-color: #f8f4f4;
+        span {
+          font-size: 1rem;
+        }
+
+      }
+
+      .delete_task:hover {
+        background-color: #f4ecec;
+      }
+    }
+
+  }
+
+  .task-hidden {
+
+    .form-check-input:checked {
+      cursor: no-drop;
+    }
+
+    .form-check-label {
+      text-decoration: line-through;
+    }
+  }
+
+}

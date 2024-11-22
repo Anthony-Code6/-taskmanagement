@@ -1,8 +1,16 @@
-.logout{
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+}
+
+.navbar-brand , .logout{
   display: flex;
   place-items: center;
   gap: 2px;
+}
 
+.logout {
   background-color: #ffffff;
   padding: 5px 10px;
   border-radius: 13px;
@@ -10,6 +18,6 @@
 }
 
 
-.logout:hover{
+.logout:hover {
   background-color: #ebdddd;
 }

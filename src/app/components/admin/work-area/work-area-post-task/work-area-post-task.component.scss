@@ -1,0 +1,38 @@
+.form-control:focus {
+  border: 1px solid #9c9c9c25;
+}
+
+#message-error {
+  color: rgba(255, 0, 0, 0.486) !important;
+  display: flex;
+  align-items: center;
+
+  span {
+    font-size: 1.02rem;
+    margin-right: 2px;
+  }
+}
+
+.accion {
+
+  button {
+    border: none;
+    width: 100%;
+    padding: 4px 4px;
+    border-radius: 20px;
+    background-color: #f8f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      font-size: 1.10rem;
+      margin-right: 2px;
+    }
+
+  }
+
+  button:hover {
+    background-color: #f4ecec;
+  }
+}

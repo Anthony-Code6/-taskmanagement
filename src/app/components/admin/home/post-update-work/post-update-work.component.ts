@@ -31,7 +31,7 @@ export class PostUpdateWorkComponent {
         this.titulo = 'Editar Area de Trabajo'
         this.idWork = paran['id']
       } else {
-        this.titulo = 'Crear Nueva Area de Trabajo'
+        this.titulo = 'Crear Area de Trabajo'
         this.idWork = 0
       }
     })
@@ -45,15 +45,15 @@ export class PostUpdateWorkComponent {
       // Retona la informacion del area de trabajo
       const data = this.editWork()
       if (data != undefined) {
-        this.detailWork()
+        this.detailWork(data)
       }
     })
   }
 
 
-  detailWork() {
-    this.formulario.controls['titulo'].setValue(this.editWork()?.titulo)
-    this.formulario.controls['descripcion'].setValue(this.editWork()?.descripcion)
+  detailWork(details: Work) {
+    this.formulario.controls['titulo'].setValue(details.titulo)
+    this.formulario.controls['descripcion'].setValue(details.descripcion)
   }
 
   submitWork() {

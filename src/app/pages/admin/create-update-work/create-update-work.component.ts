@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
-import { AreasService } from '../../../services/areas.service';
+import { AreasService } from '../../../services/work.service';
 import { Work } from '../../../interfaces/work';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostUpdateWorkComponent } from '../../../components/admin/home/post-update-work/post-update-work.component';
@@ -46,6 +46,7 @@ export class CreateUpdateWorkComponent {
     if (response.error) {
       // Mensaje de Error
       //response.error.message;
+      this.router.navigate(['administrador/home'])
     } else if (response.work) {
       this.editWork = response.work
     }
