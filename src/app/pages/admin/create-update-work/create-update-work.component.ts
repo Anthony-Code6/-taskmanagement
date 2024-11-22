@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { AreasService } from '../../../services/areas.service';
 import { Work } from '../../../interfaces/work';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,17 +11,17 @@ import { PostUpdateWorkComponent } from '../../../components/admin/home/post-upd
   templateUrl: './create-update-work.component.html',
   styleUrl: './create-update-work.component.scss'
 })
-export class CreateUpdateWorkComponent implements OnInit {
+export class CreateUpdateWorkComponent {
+
   areaServices = inject(AreasService)
   routerActive = inject(ActivatedRoute)
   router = inject(Router)
 
   editWork !: Work
 
+  constructor() {
 
-  ngOnInit(): void {
     this.routerActive.params.subscribe(paran => {
-      //console.log(paran);
       if (paran['id'] > 0) {
         this.getWork(paran['id'])
       }

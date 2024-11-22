@@ -36,8 +36,16 @@ export class AuthSupabaseService {
   }
 
 
-  signOut() {
-    return this.supabase_client.auth.signOut()
+  async signOut(): Promise<{ error: any | null }> {
+    const { error } = await this.supabase_client.auth.signOut();
+
+    if (error) {
+      //console.error('Error al cerrar sesión:', error.message);
+      return { error };
+    }
+
+    //console.log('Sesión cerrada correctamente.');
+    return { error: null };
   }
 
   /* Manejo del token */

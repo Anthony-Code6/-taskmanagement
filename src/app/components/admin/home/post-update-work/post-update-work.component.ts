@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, effect, inject, input, OnInit, output } from '@angular/core';
+import { Component, effect, inject, input, output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Work } from '../../../../interfaces/work';
@@ -11,7 +11,7 @@ import { AuthSupabaseService } from '../../../../services/auth-supabase.service'
   templateUrl: './post-update-work.component.html',
   styleUrl: './post-update-work.component.scss'
 })
-export class PostUpdateWorkComponent implements OnInit {
+export class PostUpdateWorkComponent {
 
   formulario_work = output<Work>()
   editWork = input<Work>()
@@ -25,9 +25,8 @@ export class PostUpdateWorkComponent implements OnInit {
   idWork!: number
   titulo!: string
 
-  ngOnInit(): void {
+  constructor() {
     this.routerActive.params.subscribe(paran => {
-      //console.log(paran);
       if (paran['id'] > 0) {
         this.titulo = 'Editar Area de Trabajo'
         this.idWork = paran['id']
@@ -41,15 +40,16 @@ export class PostUpdateWorkComponent implements OnInit {
       titulo: this.form.control('', [Validators.required]),
       descripcion: this.form.control('', [Validators.required])
     })
+
+    effect(() => {
+      // Retona la informacion del area de trabajo
+      const data = this.editWork()
+      if (data != undefined) {
+        this.detailWork()
+      }
+    })
   }
 
-  ngAfterViewInit() {
-    if (this.idWork > 0) {
-      setTimeout(() => {
-        this.detailWork()
-      }, 2000);
-    }
-  }
 
   detailWork() {
     this.formulario.controls['titulo'].setValue(this.editWork()?.titulo)

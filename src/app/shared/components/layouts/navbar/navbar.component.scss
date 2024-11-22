@@ -1,0 +1,15 @@
+.logout{
+  display: flex;
+  place-items: center;
+  gap: 2px;
+
+  background-color: #ffffff;
+  padding: 5px 10px;
+  border-radius: 13px;
+  border: 2px solid #f8f4f4;
+}
+
+
+.logout:hover{
+  background-color: #ebdddd;
+}

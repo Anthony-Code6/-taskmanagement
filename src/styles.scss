@@ -4,14 +4,12 @@
 
 
 .content-login,
-.content-register,
-.content-post-update {
+.content-register {
   width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-
 
   /*
   background-image: url('/assets/fondo/fondo.jpg');
@@ -20,4 +18,12 @@
   background-position: center;
   background-attachment: fixed;
  */
+}
+
+.content-post-update{
+  width: 100%;
+  height: calc(100vh - 60px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
