@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { HomeWorkComponent } from "../../../components/admin/home/home-work/home-work.component";
 import { RouterLink } from '@angular/router';
-import { AreasService } from '../../../services/work.service';
+import { WorkService } from '../../../services/work.service';
 import { Work } from '../../../interfaces/work';
 
 @Component({
@@ -11,38 +11,26 @@ import { Work } from '../../../interfaces/work';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit, OnDestroy , AfterViewInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
-  work: Work[] = []
-  private areaServices = inject(AreasService)
+  works = signal<Work[]>([])
+  private areaServices = inject(WorkService)
 
   ngOnInit(): void {
     this.sellWork()
   }
 
   ngOnDestroy(): void {
-    this.areaServices.cleanWork()
+    this.works.set([])
   }
 
-  ngAfterViewInit(): void {
-    this.areaServices.getWork().subscribe({
-      next: data => {
-        this.work = data
-      }, error: err => {
-        //console.log(err);
-      }
-    })
-  }
 
   async sellWork() {
-    const response = await this.areaServices.sellstWork();
-    if (response.error) {
-      // Mensaje de Error
-      //response.error.message;
-    } else if (response.work) {
-      response.work.forEach(element => {
-        this.areaServices.setWork(element);
-      });
+    try {
+      const response = await this.areaServices.sellstWork();
+      this.works.set(response)
+    } catch (err) {
+      console.log(err);
     }
   }
 
@@ -50,14 +38,19 @@ export class HomeComponent implements OnInit, OnDestroy , AfterViewInit {
 
     const validar = confirm(`Deseas eliminar el area de trabajo '${event?.titulo}'`)
 
-    if(validar){
-      const response = await this.areaServices.dltWork(event?.id);
-      if (response.error) {
-        //this.error = 'Error al eliminar el registro: ' + response.error.message;
-      } else {
-        //console.log('Registro eliminado correctamente');
-        this.areaServices.removeWork(event?.id);
+    if (validar) {
+      try {
+        const id = event?.id as Number
+        const response = await this.areaServices.dltWork(id);
+        console.log(response);
+
+        const updateWorks = this.works().filter((item) => item.id !== event?.id)
+        this.works.set(updateWorks)
+
+      } catch (err) {
+        console.log(err);
       }
+
     }
   }
 

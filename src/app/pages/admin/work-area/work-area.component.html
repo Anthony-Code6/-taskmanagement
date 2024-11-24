@@ -19,7 +19,9 @@
 
 
       <div class="content-task">
-        <app-work-area-list-task />
+        @for (item of tasks(); track item.id) {
+        <app-work-area-list-task [task]="item" />
+        }
       </div>
 
 

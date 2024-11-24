@@ -1,6 +1,6 @@
 <div class="content-work">
 
-  @for (item of work; track item.id ; let index = $index) {
+  @for (item of works(); track item.id ; let index = $index) {
   <app-home-work [work]="item" (delete)="dltWork($event)" />
   }
 
