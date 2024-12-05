@@ -13,9 +13,10 @@ import { TaskService } from '../../../services/task.service';
   templateUrl: './work-area.component.html',
   styleUrl: './work-area.component.scss'
 })
-export class WorkAreaComponent implements OnInit, OnDestroy {
+export class WorkAreaComponent implements OnDestroy {
 
   tasks = signal<Task[]>([])
+  idTask!: number
 
   private taskService = inject(TaskService)
 
@@ -23,9 +24,11 @@ export class WorkAreaComponent implements OnInit, OnDestroy {
   private route = inject(Router)
   private workServices = inject(WorkService)
 
-  ngOnInit(): void {
+  constructor() {
     this.router.params.subscribe((parans) => {
-      this.getWork(parans['id'])
+      let idtarea = parans['id'] as number
+      this.getWork(idtarea)
+      this.idTask = idtarea
     })
   }
 
@@ -43,8 +46,25 @@ export class WorkAreaComponent implements OnInit, OnDestroy {
     }
   }
 
-  postTask(task: Task) {
+  async postTask(task: Task) {
     console.log(task);
+
+    try {
+      const response = this.taskService.addTask(task)
+      console.log((await response).id);
+
+      let task_push: Task = {
+        id: (await response).id,
+        task_id: (await response).task_id,
+        tarea: (await response).tarea,
+        estado: (await response).estado
+      }
+
+      this.tasks.update((parans) => [...parans, task_push])
+
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async sellstTask(task_id: number) {
@@ -57,5 +77,29 @@ export class WorkAreaComponent implements OnInit, OnDestroy {
   }
 
 
+  async deleteTask(event: Task) {
+    try {
+      const response = await this.taskService.dltTask(event.id as Number)
+      const updateTask = this.tasks().filter((element) => element.id !== event.id)
+      this.tasks.set(updateTask)
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async updateTask(event: Task) {
+    try {
+      const response = await this.taskService.updTask(event.id as number, event)
+      const updateTask = this.tasks().map((item) =>
+        item.id == event.id
+          ? { ...item, estado: event.estado }
+          : item
+      )
+      this.tasks.set(updateTask)
+
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
 }

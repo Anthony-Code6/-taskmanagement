@@ -1,12 +1,21 @@
-<form enctype="multipart/form-data" method="post">
+<form enctype="multipart/form-data" method="post" [formGroup]="formulario" (submit)="submitTask()">
   <div class="mt-4 mb-2">
     <input type="text" name="tarea" id="tarea" class="form-control form-control-sm shadow-none"
-      placeholder="Nueva Tarea ........" />
+      placeholder="Nueva Tarea ........" formControlName="tarea" />
+
+    @if(formulario.controls['tarea'].invalid && formulario.controls['tarea'].touched ||
+    formulario.controls['tarea'].dirty){
+
+    @if(formulario.controls['tarea'].errors?.['required']){
     <small id="message-error" class="text-muted">
       <span class="material-symbols-outlined">
         error
       </span>
-      Help text</small>
+      La tarea es requerida.
+    </small>
+    }
+
+    }
   </div>
 
 

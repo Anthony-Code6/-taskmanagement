@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthSupabaseService } from '../../../services/auth-supabase.service';
 import { RouterLink } from '@angular/router';
+import { Signup } from '../../../interfaces/auth';
 
 
 @Component({
@@ -15,31 +16,27 @@ export class AuthRegisterComponent {
   formulario!: FormGroup
   form = inject(FormBuilder)
 
-  authSupaBase = inject(AuthSupabaseService)
+  form_signup = output<Signup>()
 
-  ngOnInit(): void {
-
+  constructor() {
     this.formulario = this.form.group({
       email: this.form.control('', [Validators.required, Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]),
       password: this.form.control('', [Validators.required])
     })
-
   }
+
 
   async crearCuenta() {
     if (this.formulario.valid) {
       const email = this.formulario.controls['email'].value
       const password = this.formulario.controls['password'].value
-      console.log(email, password);
 
-      const response = await this.authSupaBase.signUp(email, password)
-
-      if(response.error){
-        alert(response.error.message)
-      }else{
-        console.log(response.data);
-
+      let signUp_user: Signup = {
+        email: email,
+        password: password
       }
+
+      this.form_signup.emit(signUp_user)
     }
   }
 

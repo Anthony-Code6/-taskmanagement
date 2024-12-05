@@ -15,19 +15,17 @@ export class AuthSupabaseService {
   }
 
   async signUp(email: string, password: string) {
-    //return this.supabase_client.auth.signUp({ email, password })
-    const { data, error } = await this.supabase_client.auth.signUp({
+    let { data, error } = await this.supabase_client.auth.signUp({
       email: email,
       password: password
     })
+
     if (error) {
-      console.error('Error al registrarse:', error.message);
-      return { error };
+      throw new Error(error.message)
     }
 
     console.log('Registro exitoso:', data);
-    return { data };
-
+    return data
   }
 
 

@@ -37,7 +37,7 @@ export class CreateUpdateWorkComponent {
     }
 
     setTimeout(() => {
-      this.router.navigate(['/administrador/home'])
+      // this.router.navigate(['/administrador/home'])
     }, 1000)
   }
 
@@ -51,10 +51,10 @@ export class CreateUpdateWorkComponent {
   }
 
   async postArea(datos: Work) {
-    try{
+    try {
       const response = await this.areaServices.addWork(datos);
       // Mensaje
-    }catch(err){
+    } catch (err) {
       console.log(err);
     }
   }

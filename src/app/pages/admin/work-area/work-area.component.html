@@ -12,7 +12,7 @@
 
       </div>
 
-      <app-work-area-post-task />
+      <app-work-area-post-task [idTask]="idTask" (form_task)="postTask($event)" />
 
       <hr>
       <h6 class="card-title text-center">Lista de Tareas</h6>
@@ -20,7 +20,7 @@
 
       <div class="content-task">
         @for (item of tasks(); track item.id) {
-        <app-work-area-list-task [task]="item" />
+        <app-work-area-list-task [task]="item" (updateTask)="updateTask($event)" (deleteTask)="deleteTask($event)" />
         }
       </div>
 

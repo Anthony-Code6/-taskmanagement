@@ -56,11 +56,13 @@ export class WorkService {
     return '';
   }
 
-  async addWork(work: Work): Promise<Work[]> {
+  async addWork(work: Work): Promise<Work> {
     const { data, error } = await this.supabase_client
       .from('work')
       .insert([work]) // Inserta un nuevo registro
-      .select(); // Devuelve los datos insertados
+      .select() // Devuelve los datos insertados
+      .order('id', { ascending: false }) // Opcional, ordenar por la columna incremental
+      .limit(1);
 
     if (error) {
       console.error('Error al insertar datos:', error.message);
@@ -68,7 +70,7 @@ export class WorkService {
     }
 
     console.log('Datos insertados correctamente:', data);
-    return data as Work[]
+    return data[0] as Work
   }
 
   async updWork(id: number, updatedWork: Work) {
